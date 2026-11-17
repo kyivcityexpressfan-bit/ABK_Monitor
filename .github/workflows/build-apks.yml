@@ -1,1 +1,55 @@
 
+name: Build ABK Android APKs
+
+'on':
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Prepare Firebase configuration
+        shell: bash
+        run: |
+          mkdir -p monitor control
+          for app in monitor control; do
+            if [ ! -f "$app/google-services.json" ]; then
+              echo "Firebase config missing for $app"
+              exit 1
+            fi
+          done
+
+      - name: Build both debug APKs
+        run: gradle :monitor:assembleDebug :control:assembleDebug
+
+      - name: Upload ABK Monitor APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ABK-Monitor-APK
+          path: monitor/build/outputs/apk/debug/monitor-debug.apk
+
+      - name: Upload ABK Control APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ABK-Control-APK
+          path: control/build/outputs/apk/debug/control-debug.apk
