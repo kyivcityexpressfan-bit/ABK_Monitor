@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "542848179582",
+    "project_id": "abk-monitor",
+    "storage_bucket": "abk-monitor.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542848179582:android:3424b3ef28138eb1c6e72f",
+        "android_client_info": {
+          "package_name": "ua.abk.monitor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgyZ6KtIBmT6zbqef8BxLOw-zbNVeZ4BY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
